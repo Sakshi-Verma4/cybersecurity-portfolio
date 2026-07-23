@@ -20,10 +20,10 @@ sudo grep "sshd" /var/log/auth.log | tail -30
 - Every login attempt originated from a single source IP: `192.168.56.102`
 - Multiple connection attempts occurred within the same second, confirming automated (non-human) activity
 - Each connection was terminated after 6 failed password attempts, triggered by SSH's built-in `MaxAuthTries` setting
-- No `"Accepted password"` entry exists anywhere in the log — the attack did not succeed
+- No `"Accepted password"` entry exists anywhere in the log the attack did not succeed
 
 ## Key Technical Detail: Connections vs. Attempts
-Each failed connection (identified by a unique client-side port number, e.g.56750, 56828) represents one distinct login session — not a different service
+Each failed connection (identified by a unique client-side port number, e.g.56750, 56828) represents one distinct login session not a different service
 or port on the target. All connections targeted the same destination: `192.168.56.103:22`. Once a connection hit the 6-attempt limit, Ubuntu disconnected it;
 Hydra responded by immediately opening a new connection and continuing, cycling through connections rather than being stopped outright.
 
@@ -37,12 +37,12 @@ Hydra responded by immediately opening a new connection and continuing, cycling 
 across all attempts, no successful login entry present in the log.
 
 **Assessment**: Timestamp clustering confirms automated tool activity. MaxAuthTries successfully prevented any single connection from attempting
-enough passwords to succeed. However, this defense only limits attempts *per connection* — it does not prevent an attacker from reconnecting
+enough passwords to succeed. However, this defense only limits attempts "Per Connection" it does not prevent an attacker from reconnecting
 indefinitely, meaning it slows an attack rather than stopping it outright.
 
 **Recommendation**: Layer additional defenses rather than relying on MaxAuthTries alone:
 
-**SSH key-based authentication** — removes password guessing as a viable attack vector entirely, rather than slowing it down.
+**SSH key-based authentication** removes password guessing as a viable attack vector entirely, rather than slowing it down.
 
 ## What I Learned
 - A defense that limits attempts *per connection* is not the same as a defense that stops an *attacker* — distinguishing these two is critical
