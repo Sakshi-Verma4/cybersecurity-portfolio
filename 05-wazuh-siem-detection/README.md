@@ -48,7 +48,7 @@ Wazuh's Threat Hunting dashboard automatically surfaced:
 | Authentication successes | 17 |
 | Level 12+ (critical) alerts | 0 |
 
-![Wazuh dashboard summary](./Main.png)
+![Wazuh dashboard summary](./Main%20.png)
 
 ![MITRE ATT&CK classification](./mitreattack.png)
 
