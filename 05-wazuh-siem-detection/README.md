@@ -53,7 +53,7 @@ Wazuh's Threat Hunting dashboard automatically surfaced:
 ![MITRE ATT&CK classification](./mitre-attack.png)
 
 **Comparison to manual investigation (Project 03)**: the automated count (909 authentication failures) closely matched the manual count obtained earlier
-via `grep`/`tail` (906 lines) — validating that Wazuh's automatic detection is consistent with manual forensic analysis, while requiring a fraction
+via `grep`/`tail` (906 lines)  validating that Wazuh's automatic detection is consistent with manual forensic analysis, while requiring a fraction
 of the time and effort.
 
 **MITRE ATT&CK classification**: Wazuh automatically categorized the attack activity under real MITRE ATT&CK techniques, without any manual tagging:
@@ -62,12 +62,12 @@ of the time and effort.
 - Brute Force
 - Valid Accounts / Sudo and Sudo Caching / Create Account (minor volume)
 
-**Zero critical (Level 12+) alerts** confirmed — consistent with the earlier manual finding that the attack generated high volume but did not
+**Zero critical (Level 12+) alerts** confirmed consistent with the earlier manual finding that the attack generated high volume but did not
 result in a successful compromise.
 
 ## Assessment
-This project validates the manual log analysis performed in Project 03 using an independent, automated tool. The near-identical event count 
-between manual `grep` analysis and Wazuh's automatic detection confirms both methods correctly captured the same real-world activity. The key advantage
+This project validates the manual log analysis performed in Project 03 using an independent, automated tool. The near identical event count 
+between manual `grep` analysis and Wazuh's automatic detection confirms both methods correctly captured the same real world activity. The key advantage
 of the SIEM is speed and scale: what took manual `tail`/`grep` commands and careful reading to reconstruct, Wazuh presented as an immediate
 visual summary with proper threat classification (MITRE ATT&CK), without any manual correlation work.
 
@@ -81,7 +81,7 @@ In a production environment, this configuration would benefit from:
 ## What I Learned
 - A SIEM's value isn't just detection it's *speed and classification*. The underlying evidence was identical to my manual analysis, but Wazuh surfaced
    it instantly and mapped it to an industry-standard framework (MITRE ATT&CK) automatically
-- Default SIEM configurations don't automatically monitor every relevant log file — verifying and explicitly configuring log sources is a necessary step,
+- Default SIEM configurations don't automatically monitor every relevant log file verifying and explicitly configuring log sources is a necessary step,
   not an assumption
-- Cross-validating an automated tool's output against manual analysis (comparing 909 vs. 906) is a valuable practice — it builds confidence that both
+- Cross validating an automated tool's output against manual analysis (comparing 909 vs. 906) is a valuable practice it builds confidence that both
   the manual method and the tool are working correctly, rather than blindly trusting either one.
