@@ -54,7 +54,9 @@ Wazuh's Threat Hunting dashboard automatically surfaced:
 | Authentication successes | 17 |
 | Level 12+ (critical) alerts | 0 |
 
+![Wazuh dashboard summary](./Main .png)
 
+![MITRE ATT&CK classification](./mitre-attack.png)
 
 **Comparison to manual investigation (Project 03)**: the automated count
 (909 authentication failures) closely matched the manual count obtained
