@@ -1,0 +1,71 @@
+# Azure Storage Public Access Misconfiguration (Find & Fix)
+
+## Objective
+Demonstrate a common real-world cloud security finding, a publicly exposed storage container, by deliberately creating the misconfiguration,
+proving the exposure with a real unauthenticated request, then fixing and verifying the fix, all on live Azure infrastructure.
+
+## Environment
+| Component | Details |
+|---|---|
+| Platform | Microsoft Azure (free tier) |
+| Service | Azure Storage Account (Blob Storage) |
+| Resource Group | storage-audit-rg |
+| Storage Account | sakshistoragetest01 |
+
+## Steps
+
+**1. Created a storage account and container**
+A new storage account was created, with "Allow Blob public access" enabled at the account level (this is disabled by default on newer Azure accounts,
+and had to be explicitly turned on to demonstrate the misconfiguration).
+
+**2. Set the container to public access**
+The container's access level was set to "Container", making any file inside it publicly readable by anyone with the URL, no login or credentials required.
+
+![Container access level set to public](./public-access-setting.png)
+
+**3. Uploaded a test file and confirmed public exposure**
+A test file was uploaded, and its direct URL was opened in an incognito browser tab (no Azure login active), to simulate a random stranger on the internet finding
+it.
+
+![File contents loading with no authentication](./exposed-file-proof.png)
+
+The file's contents loaded directly, with zero authentication, confirming the exposure was real and exploitable by anyone.
+
+**4. Remediated the misconfiguration**
+The container's access level was changed back to "Private (no anonymous access)".
+
+![Container access level changed back to private](./fix-applied.png)
+
+**5. Verified the fix**
+The same URL was requested again from the same incognito browser tab.
+
+```xml
+<Error>
+<Code>ResourceNotFound</Code>
+<Message>The specified resource does not exist.</Message>
+</Error>
+```
+
+![Access denied after fix](./fix-verified.png)
+
+The file was no longer accessible, confirming the fix worked.
+
+## Assessment
+This demonstrates one of the most common real-world cloud misconfigurations, publicly exposed storage containers are a frequent cause of real data breaches, often
+from a single setting being left on the wrong value. The exposure here required no attack technique at all, just knowing (or guessing) the URL, which is why this
+class of misconfiguration is so consistently dangerous in practice.
+
+## Recommendation
+- Keep "Allow Blob public access" disabled at the account level by default (Azure's current default), and only enable it deliberately when a specific,
+reviewed use case requires it
+- Regularly audit container access levels across storage accounts, rather than assuming defaults are always correctly applied
+- Consider using Azure Policy to prevent public access from being enabled on storage accounts entirely in a real organization, removing the possibility of this
+misconfiguration happening by accident
+
+## What I Learned
+- Azure now disables public blob access by default at the account level, a real security improvement, this had to be explicitly enabled to demonstrate the older,
+riskier configuration
+- Proving exposure with an actual unauthenticated request (incognito browser, no login) is much stronger evidence than just showing a setting, it demonstrates real
+impact, not just a configuration state
+- The same before/after verification approach used in my local lab projects (confirm the problem, fix it, confirm the fix) applies directly to cloud security work
+too, the tools change but the methodology doesn't
