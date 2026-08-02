@@ -21,19 +21,19 @@ be explicitly turned on to demonstrate the misconfiguration).
 **2. Set the container to public access**
 The container's access level was set to "Container", making any file inside it publicly readable by anyone with the URL, no login or credentials required.
 
-![Container access level set to public](./.png)
+![Container access level set to public](./The-misconfiguration-setting-itself-public.png)
 
 **3. Uploaded a test file and confirmed public exposure**
 A test file was uploaded, and its direct URL was opened in an incognito browser tab (no Azure login active), to simulate a random stranger on the internet finding it.
 
-
+![Container access level changed back to private](./TThe-misconfiguration-setting-itself.png)
 
 The file's contents loaded directly, with zero authentication, confirming the exposure was real and exploitable by anyone.
 
 **4. Remediated the misconfiguration**
 The container's access level was changed back to "Private (no anonymous access)".
 
-
+![Container access level changed back to private](./The-fix-being-applied.png)
 
 **5. Verified the fix**
 The same URL was requested again from the same incognito browser tab.
@@ -45,7 +45,7 @@ The same URL was requested again from the same incognito browser tab.
 </Error>
 ```
 
-
+![Container access level changed back to private](./Proof-the-fix-worked.png)
 
 The file was no longer accessible, confirming the fix worked.
 
