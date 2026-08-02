@@ -26,7 +26,7 @@ The container's access level was set to "Container", making any file inside it p
 **3. Uploaded a test file and confirmed public exposure**
 A test file was uploaded, and its direct URL was opened in an incognito browser tab (no Azure login active), to simulate a random stranger on the internet finding it.
 
-![Container access level changed back to private](./TThe-misconfiguration-setting-itself.png)
+![Container access level changed back to private](./Proof-of-exposure.png)
 
 The file's contents loaded directly, with zero authentication, confirming the exposure was real and exploitable by anyone.
 
